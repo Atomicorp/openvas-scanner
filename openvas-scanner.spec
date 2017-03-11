@@ -204,9 +204,9 @@ install -Dp -m 644 %{SOURCE6} %{buildroot}/%{_sysconfdir}/cron.d/openvas-sync-pl
 %systemd_post %{name}.service
 
 # Generate cert
-if [ ! -f  /var/lib/openvas/CA/servercert.pem ] ; then
-  /usr/sbin/openvas-mkcert -q >/dev/null 2>&1
-fi
+#if [ ! -f  /var/lib/openvas/CA/servercert.pem ] ; then
+#  /usr/sbin/openvas-mkcert -q >/dev/null 2>&1
+#fi
 
 %preun
 %systemd_preun %{name}.service
@@ -227,9 +227,9 @@ fi
 /sbin/chkconfig openvas-scanner on
 
 # Generate cert
-if [ ! -f  /var/lib/openvas/CA/servercert.pem ] ; then
-  /usr/sbin/openvas-mkcert -q >/dev/null 2>&1
-fi
+#if [ ! -f  /var/lib/openvas/CA/servercert.pem ] ; then
+#  /usr/sbin/openvas-mkcert -q >/dev/null 2>&1
+#fi
 
 
 %preun
@@ -254,9 +254,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %doc CHANGES ChangeLog COPYING README
 #%{_sbindir}/openvas-adduser
-%{_sbindir}/openvas-mkcert
-%{_bindir}/openvas-mkcert-client
-%{_sbindir}/openvas-nvt-sync
+#%{_sbindir}/openvas-mkcert
+#%{_bindir}/openvas-mkcert-client
+#%{_sbindir}/openvas-nvt-sync
 %{_sbindir}/openvas-nvt-sync-cron
 %{_sbindir}/greenbone-nvt-sync
 %{_sbindir}/openvassd
@@ -271,10 +271,10 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/sysconfig/openvas-scanner
 %config(noreplace) %{_sysconfdir}/cron.d/openvas-sync-plugins
 %config(noreplace) %{_sysconfdir}/logrotate.d/openvas-scanner
-%{_mandir}/man1/openvas-mkcert-client.1.*
-%{_mandir}/man8/openvas-mkcert.8.*
+#%{_mandir}/man1/openvas-mkcert-client.1.*
+#%{_mandir}/man8/openvas-mkcert.8.*
 %{_mandir}/man8/openvassd.8.*
-%{_mandir}/man8/openvas-nvt-sync.8.*
+#%{_mandir}/man8/openvas-nvt-sync.8.*
 %{_mandir}/man8/greenbone-nvt-sync.8.*
 %dir %{_var}/log/openvas
 %dir %{_var}/lib/openvas
