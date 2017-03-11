@@ -1,0 +1,2 @@
+# start plugin sync daily at midnight
+0 0 * * * root /usr/sbin/openvas-nvt-sync-cron
