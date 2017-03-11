@@ -106,7 +106,7 @@ openvas-scanner is the server component of the Network Vulnerabilty Scanner suit
 
 %prep
 %setup -n %{name}-%{version} -b 0
-%patch1 -p 1 -b .werror
+#%patch1 -p 1 -b .werror
 
 
 for i in CHANGES ChangeLog; do
