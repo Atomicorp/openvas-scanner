@@ -1,7 +1,7 @@
 Summary: The Open Vulnerability Assessment (OpenVAS) Server
 Name:    openvas-scanner
 Version: 5.1.1
-Release: 25%{?dist}.art
+Release: RELEASE-AUTO%{?dist}.art
 Source0: http://wald.intevation.org/frs/download.php/2423/openvas-scanner-5.1.1.tar.gz
 Source1: openvas-initd.sh
 Source2: openvassd.conf
