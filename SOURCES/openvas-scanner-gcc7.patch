@@ -1,0 +1,11 @@
+diff -ru openvas-scanner-5.1.1/src/pluginscheduler.c openvas-scanner-5.1.1.new/src/pluginscheduler.c
+--- openvas-scanner-5.1.1/src/pluginscheduler.c	2016-11-10 10:57:56.000000000 +0100
++++ openvas-scanner-5.1.1.new/src/pluginscheduler.c	2017-04-18 03:14:26.811428275 +0200
+@@ -687,6 +687,7 @@
+               scheduler_rm_running_ports (h, l->plugin);
+               l->plugin->running_state = PLUGIN_STATUS_DONE_AND_CLEANED;
+               /* no break - we remove it right away */
++              /* fallthrough */
+             case PLUGIN_STATUS_DONE_AND_CLEANED:
+               {
+                 struct list *old = l->next;
