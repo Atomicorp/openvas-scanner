@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" != "upgrade" ]; then
+	if [ -x "/etc/init.d/openvas-scanner" ] ; then
+		        if which invoke-rc.d >/dev/null 2>&1; then
+		                invoke-rc.d openvas-scanner stop
+			else
+	        		/etc/init.d/openvas-scanner stop
+			fi
+	else
+                start-stop-daemon --stop --quiet --oknodo --exec /usr/sbin/openvassd
+	fi
+fi
+
+
+#DEBHELPER#
+
+
+exit 0
+

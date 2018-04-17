@@ -1,0 +1,57 @@
+# openvas-scanner debconf translations
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the openvas-scanner package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Changes:
+# - Initial translation
+# Jonathan Bustillos <jathanblackred@openmailbox.com>, 2017.
+#
+# Traductores, si no conocen el formato PO, merece la pena leer la
+# documentación de gettext, especialmente las secciones dedicadas a este
+# formato, por ejemplo ejecutando:
+# info -n '(gettext)PO Files'
+# info -n '(gettext)Header Entry'
+#
+# Equipo de traducción al español, por favor lean antes de traducir
+# los siguientes documentos:
+#
+# - El proyecto de traducción de Debian al español
+# http://www.debian.org/intl/spanish/
+# especialmente las notas y normas de traducción en
+# http://www.debian.org/intl/spanish/notas
+#
+# - La guía de traducción de po's de debconf:
+# /usr/share/doc/po-debconf/README-trans
+# o http://www.debian.org/intl/l10n/po-debconf/README-trans
+msgid ""
+msgstr ""
+"Project-Id-Version: openvas-scanner\n"
+"Report-Msgid-Bugs-To: openvas-scanner@packages.debian.org\n"
+"POT-Creation-Date: 2016-09-14 17:49+0800\n"
+"PO-Revision-Date: 2017-02-23 18:30-0600\n"
+"Last-Translator: Jonathan Bustillos <jathanblackred@openmailbox.com>\n"
+"Language-Team: Debian Spanish <debian-l10n-spanish@lists.debian.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid "Do you want to enable redis unix socket on /var/run/redis/redis.sock?"
+msgstr "¿Desea habilitar redis unix socket en /var/run/redis/redis.sock?"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"Openvas scanner require redis database to store data. It will connect to the "
+"database with a unix socket at /var/run/redis/redis.sock and /etc/redis/"
+"redis.conf will be updated."
+msgstr ""
+"El escáner Openvas requiere una base de datos redis para almacenar datos. Se "
+"conectará a la base de datos con un socket unix en /var/run/redis/redis.sock "
+"y se actualizará el archivo /etc/redis/redis.conf."

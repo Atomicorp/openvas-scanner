@@ -1,0 +1,37 @@
+# Traditional Chinese translations for openvas-scanner.
+# Copyright (C) 2016 openvas-scanner & SZ Lin.
+# This file is distributed under the same license as the openvas-scanner package.
+#
+# SZ Lin (林上智) <szlin@cs.nctu.edu.tw>, 2016.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: openvas-scanner\n"
+"Report-Msgid-Bugs-To: openvas-scanner@packages.debian.org\n"
+"POT-Creation-Date: 2016-07-26 23:46+0200\n"
+"PO-Revision-Date: 2016-08-03 14:41+0800\n"
+"Last-Translator: SZ Lin (林上智) <szlin@cs.nctu.edu.tw>\n"
+"Language-Team: Debian-user in Chinese [Big5] <debian-chinese-big5@lists."
+"debian.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid "Do you want to enable redis unix socket on /var/run/redis/redis.sock?"
+msgstr "請問您確定要啟用位於 /var/run/redis/redis.sock 的 redis unix socket?"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"Openvas scanner require redis database to store data. It will connect to the "
+"database with a unix socket at /var/run/redis/redis.sock and /etc/redis/"
+"redis.conf will be updated."
+msgstr ""
+"Openvas scanner 需要 redis 資料庫以儲存資料. 這會透過位於 /var/run/redis/redis.sock "
+"以 unix socket 方式連接到資料庫. 並且會一併更新 /etc/redis/redis.conf"

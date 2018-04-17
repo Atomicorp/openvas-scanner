@@ -1,0 +1,7 @@
+Template: openvas-scanner/enable_redis
+Type: boolean
+Default: true
+_Description: Do you want to enable redis unix socket on /var/run/redis/redis.sock?
+ Openvas scanner require redis database to store data. It will connect to the
+ database with a unix socket at /var/run/redis/redis.sock and /etc/redis/redis.conf
+ will be updated.

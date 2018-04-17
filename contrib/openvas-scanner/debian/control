@@ -1,0 +1,40 @@
+Source: openvas-scanner
+Section: admin
+Priority: optional
+Maintainer: Debian Security Tools Packaging Team <pkg-security-team@lists.alioth.debian.org>
+Uploaders: ChangZhuo Chen (陳昌倬) <czchen@debian.org>,
+           SZ Lin (林上智) <szlin@debian.org>
+Build-Depends: debhelper (>= 10),
+               cmake (>= 2.8),
+               pkg-config,
+               libglib2.0-dev (>= 2.32),
+               libgcrypt20-dev,
+               libgnutls28-dev,
+               libpcap-dev,
+               libopenvas-dev (>= 9),
+               po-debconf,
+               doxygen
+Standards-Version: 4.1.2
+Homepage: http://www.openvas.org/
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-security/openvas-scanner.git
+Vcs-Git: https://anonscm.debian.org/cgit/pkg-security/openvas-scanner.git
+
+Package: openvas-scanner
+Section: net
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, openssl, redis-server,
+         lsb-base (>= 3.0-6)
+Replaces: openvas-server, openvas-plugins
+Conflicts: openvas-server, openvas-plugins
+Recommends: rsync, nmap
+Suggests: openvas-client, snmp, pnscan, strobe, ike-scan
+Description: remote network security auditor - scanner
+ The Open Vulnerability Assessment System is a modular security auditing
+ tool, used for testing remote systems for vulnerabilities that should be
+ fixed.
+ .
+ It is made up of two parts: a scan server, and a client. The scanner/daemon,
+ openvassd, is in charge of the attacks, whereas the client,
+ OpenVAS-Client, provides an X11/GTK+ user interface.
+ .
+ This package provides the scanner.
