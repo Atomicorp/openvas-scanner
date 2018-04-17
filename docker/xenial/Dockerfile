@@ -16,9 +16,9 @@ RUN echo "deb http://10.66.6.13/channels/atomic-testing/ubuntu/ xenial main" >> 
 RUN apt-get  --allow-unauthenticated  update
 
 RUN apt-get build-dep -y linux 
-RUN apt-get install -y fakeroot devscripts bc  debhelper bison cmake doxygen libgcrypt-dev libglib2.0-dev libgnutls28-dev libgpgme11-dev libhiredis-dev libksba-dev libldap2-dev libpcap-dev libssh-dev uuid-dev libsnmp-dev 
+RUN apt-get install -y fakeroot devscripts bc  debhelper bison cmake doxygen libgcrypt-dev libglib2.0-dev libgnutls28-dev libgpgme11-dev libhiredis-dev libksba-dev libldap2-dev libpcap-dev libssh-dev uuid-dev libsnmp-dev  libgpgme11-dev
 
-RUN apt-get install -y libopenvas-dev openvas-nasl
+RUN apt-get install --allow-unauthenticated -y libopenvas-dev openvas-nasl
 RUN apt-get clean 
 
 RUN install --directory -m 0755 /data && \
