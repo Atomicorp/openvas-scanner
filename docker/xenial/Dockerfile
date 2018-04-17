@@ -9,8 +9,8 @@ RUN echo "deb http://10.66.6.13/channels/atomic/ubuntu/ xenial main" > /etc/apt/
 # Adding atomic-testing repo 
 RUN echo "deb http://10.66.6.13/channels/atomic-testing/ubuntu/ xenial main" > /etc/apt/sources.list 
 
-# Adding atomic-testing repo 
-RUN echo "deb http://10.66.6.13/channels/atomic-bleeding/ubuntu/ xenial main" > /etc/apt/sources.list 
+# Adding atomic-bleeding repo 
+#RUN echo "deb http://10.66.6.13/channels/atomic-bleeding/ubuntu/ xenial main" > /etc/apt/sources.list 
 
 
 RUN apt-get update
