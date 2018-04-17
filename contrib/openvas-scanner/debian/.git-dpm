@@ -1,0 +1,11 @@
+# see git-dpm(1) from git-dpm package
+d0744a3f73de2a60d684c88a345d3240066389b1
+d0744a3f73de2a60d684c88a345d3240066389b1
+d0744a3f73de2a60d684c88a345d3240066389b1
+d0744a3f73de2a60d684c88a345d3240066389b1
+openvas-scanner_5.1.1.orig.tar.gz
+a78a90ef6933641dcbd3b83f49d8b3b8edca04a7
+256812
+debianTag="debian/%e%v"
+patchedTag="patched/%e%v"
+upstreamTag="upstream/%e%u"

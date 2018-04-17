@@ -1,1 +1,5 @@
 RELEASE_VERSION=5.1.1
+DEB_PACKAGES="openvas-scanner"
+DEB_VERSION="$RELEASE_VERSION"
+CHANGELOG="Initial Release"
+

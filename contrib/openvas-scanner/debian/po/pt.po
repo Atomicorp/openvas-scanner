@@ -1,0 +1,37 @@
+# Portuguese translation for openvas-scanner debconf messages.
+# This file is distributed under the same license as the openvas-scanner package.
+# Rui Branco <ruipb@debianpt.org>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openvas-scanner 5.0.7-3\n"
+"Report-Msgid-Bugs-To: openvas-scanner@packages.debian.org\n"
+"POT-Creation-Date: 2016-09-14 17:49+0800\n"
+"PO-Revision-Date: 2017-03-16 16:00+0000\n"
+"Last-Translator: Rui Branco <ruipb_at_debianpt.org>\n"
+"Language-Team: Portuguese <traduz@debianpt.org>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid "Do you want to enable redis unix socket on /var/run/redis/redis.sock?"
+msgstr "Quer activar o socket unix redis em /var/run/redis/redis.sock?"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"Openvas scanner require redis database to store data. It will connect to the "
+"database with a unix socket at /var/run/redis/redis.sock and /etc/redis/"
+"redis.conf will be updated."
+msgstr ""
+"O scanner Openvas necessita de uma base de dados redis para guardar a "
+"informação. Este irá ligar-se à base de dados através de um 'socket' unix "
+"em /var/run/redis/redis.sock e o ficheiro /etc/redis/redis.conf será "
+"actualizado."

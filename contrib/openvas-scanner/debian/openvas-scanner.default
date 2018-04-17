@@ -1,0 +1,10 @@
+# NOTE: This file is not used if you are using systemd. The options are
+# hardcoded in the openvas-scanner.service file. If you want to change
+# them you should override the service file by creating a file 
+# /etc/systemd/system/openvas-scanner.service.d/local.conf like this:
+# [Service]
+# ExecStart=
+# ExecStart=/usr/sbin/openvassd <your desired options>
+
+# The Path of unix socket to listen on.
+SCANNER_SOCKET=/tmp/redis.sock
