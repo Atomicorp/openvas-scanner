@@ -1,9 +1,8 @@
 Source: openvas-scanner
 Section: admin
 Priority: optional
-Maintainer: Debian Security Tools Packaging Team <pkg-security-team@lists.alioth.debian.org>
-Uploaders: ChangZhuo Chen (陳昌倬) <czchen@debian.org>,
-           SZ Lin (林上智) <szlin@debian.org>
+Maintainer: Atomicorp <support@atomicorp.com>
+Uploaders: Atomicorp <support@atomicorp.com>
 Build-Depends: debhelper (>= 10),
                cmake (>= 2.8),
                pkg-config,
@@ -16,8 +15,6 @@ Build-Depends: debhelper (>= 10),
                doxygen
 Standards-Version: 4.1.2
 Homepage: http://www.openvas.org/
-Vcs-Browser: https://anonscm.debian.org/cgit/pkg-security/openvas-scanner.git
-Vcs-Git: https://anonscm.debian.org/cgit/pkg-security/openvas-scanner.git
 
 Package: openvas-scanner
 Section: net
