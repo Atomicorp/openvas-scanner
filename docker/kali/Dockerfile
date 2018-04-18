@@ -12,8 +12,7 @@ RUN apt-get update
 
 RUN apt-get install wget
 
-RUN wget http://www.atomicorp.com/RPM-GPG-KEY.art.txt
-RUN  cat RPM-GPG-KEY.atomicorp.txt | apt-key add - 
+RUN wget -O - http://www.atomicorp.com/RPM-GPG-KEY.art.txt | apt-key add -
 
 # Adding atomic repo 
 #RUN echo "deb http://10.66.6.13/channels/atomic/ubuntu/ kali main" >> /etc/apt/sources.list 
