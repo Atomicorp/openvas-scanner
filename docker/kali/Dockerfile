@@ -12,7 +12,7 @@ RUN apt-get update
 
 RUN apt-get install wget
 
-RUN wget https://www.atomicorp.com/RPM-GPG-KEY.art.txt
+RUN wget http://www.atomicorp.com/RPM-GPG-KEY.art.txt
 RUN  cat RPM-GPG-KEY.atomicorp.txt | apt-key add - 
 
 # Adding atomic repo 
