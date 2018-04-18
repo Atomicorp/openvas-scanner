@@ -25,7 +25,7 @@ RUN echo "deb http://10.66.6.13/channels/atomic-testing/ubuntu/ kali main" >> /e
 
 RUN apt-get update
 
-RUN apt-get upgrade
+RUN apt-get -y upgrade
 
 #RUN apt-get build-dep -y linux 
 RUN apt-get install -y fakeroot  devscripts bc  debhelper bison cmake doxygen libgcrypt-dev libglib2.0-dev libgnutls28-dev libgpgme11-dev libhiredis-dev libksba-dev libldap2-dev libpcap-dev libssh-dev uuid-dev libsnmp-dev
