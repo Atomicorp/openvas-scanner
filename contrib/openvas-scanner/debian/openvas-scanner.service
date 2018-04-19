@@ -10,7 +10,7 @@ WantedBy=multi-user.target
 [Service]
 Type=forking
 PIDFile=/var/run/openvassd.pid
-ExecStart=/usr/sbin/openvassd --unix-socket=/tmp/redis.sock
+ExecStart=/usr/sbin/openvassd --unix-socket=/var/run/openvassd.sock
 ExecReload=/bin/kill -HUP $MAINPID
 # Kill the main process with SIGTERM and after TimeoutStopSec (defaults to
 # 1m30) kill remaining processes with SIGKILL

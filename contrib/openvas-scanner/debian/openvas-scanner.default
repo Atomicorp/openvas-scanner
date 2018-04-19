@@ -7,4 +7,4 @@
 # ExecStart=/usr/sbin/openvassd <your desired options>
 
 # The Path of unix socket to listen on.
-SCANNER_SOCKET=/tmp/redis.sock
+SCANNER_SOCKET=/var/run/openvassd.sock
