@@ -3,15 +3,16 @@ Description=Open Vulnerability Assessment System Scanner Daemon
 Documentation=man:openvassd(8) http://www.openvas.org/
 After=redis-server.service
 Requires=redis-server.service
+PartOf=openvas.service
+After=openvas.service
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=openvas.service
 
 [Service]
 Type=forking
 PIDFile=/var/run/openvassd.pid
 ExecStart=/usr/sbin/openvassd --unix-socket=/var/run/openvassd.sock
 ExecReload=/bin/kill -HUP $MAINPID
-# Kill the main process with SIGTERM and after TimeoutStopSec (defaults to
-# 1m30) kill remaining processes with SIGKILL
 KillMode=mixed
+
