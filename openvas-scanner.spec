@@ -10,7 +10,7 @@ Source4: openvas-scanner.sysconfig
 Source5: openvas-nvt-sync-cron
 Source6: openvas-nvt-sync-cronjob
 Source7: openvas-scanner.service
-Patch1: openvas-scanner-5.0.5-Werror.patch
+Patch1: openvas-scanner-5.1.2-Werror.patch
 Patch2: openvas-scanner-gcc7.patch
 
 License: GNU GPLv2
@@ -107,7 +107,7 @@ openvas-scanner is the server component of the Network Vulnerabilty Scanner suit
 
 %prep
 %setup -n %{name}-%{version} -b 0
-#%patch1 -p 1 -b .werror
+%patch1 -p 1 -b .werror
 %patch2 -p1 
 
 
