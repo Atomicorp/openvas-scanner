@@ -2,7 +2,7 @@ Summary: The Open Vulnerability Assessment (OpenVAS) Server
 Name:    openvas-scanner
 Version: 5.1.1
 Release: RELEASE-AUTO%{?dist}.art
-Source0: https://github.com/greenbone/openvas-scanner/archive/v5.1.2.tar.gz
+Source0: http://wald.intevation.org/frs/download.php/2423/openvas-scanner-5.1.1.tar.gz
 Source1: openvas-initd.sh
 Source2: openvassd.conf
 Source3: openvas.logrotate
@@ -108,7 +108,7 @@ openvas-scanner is the server component of the Network Vulnerabilty Scanner suit
 %prep
 %setup -n %{name}-%{version} -b 0
 #%patch1 -p 1 -b .werror
-#%patch2 -p1 
+%patch2 -p1 
 
 
 for i in CHANGES ChangeLog; do
