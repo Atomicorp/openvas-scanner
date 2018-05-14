@@ -5,7 +5,7 @@ stages:
 # Kali ??
 # EOL: ??
 build-kali-x86_64:
-  stage: prep
+  stage: build
   before_script:
     - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
     - rm -rf ~/rpmbuild/BUILD/* || true
