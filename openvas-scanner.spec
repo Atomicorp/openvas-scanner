@@ -1,8 +1,8 @@
 Summary: The Open Vulnerability Assessment (OpenVAS) Server
 Name:    openvas-scanner
-Version: 5.1.1
+Version: 5.1.2
 Release: RELEASE-AUTO%{?dist}.art
-Source0: http://wald.intevation.org/frs/download.php/2423/openvas-scanner-5.1.1.tar.gz
+Source0: https://github.com/greenbone/openvas-scanner/archive/v5.1.2.tar.gz
 Source1: openvas-initd.sh
 Source2: openvassd.conf
 Source3: openvas.logrotate
@@ -10,7 +10,7 @@ Source4: openvas-scanner.sysconfig
 Source5: openvas-nvt-sync-cron
 Source6: openvas-nvt-sync-cronjob
 Source7: openvas-scanner.service
-Patch1: openvas-scanner-5.0.5-Werror.patch
+Patch1: openvas-scanner-5.1.2-Werror.patch
 Patch2: openvas-scanner-gcc7.patch
 
 License: GNU GPLv2
@@ -107,8 +107,8 @@ openvas-scanner is the server component of the Network Vulnerabilty Scanner suit
 
 %prep
 %setup -n %{name}-%{version} -b 0
-#%patch1 -p 1 -b .werror
-%patch2 -p1 
+%patch1 -p 1 -b .werror
+#%patch2 -p1 
 
 
 for i in CHANGES ChangeLog; do
@@ -128,7 +128,9 @@ done
   export PKG_CONFIG_PATH=/opt/atomic/atomic-glib2/root/usr/lib64/pkgconfig:/opt/atomic/atomic-gnutls3/root/usr/lib/pkgconfig:/opt/atomic/atomic-gnutls3/root/usr/lib64/pkgconfig:/usr/lib/pkgconfig/
 %endif
 
-export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -Wno-error=deprecated-declarations"
+#export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -Wno-error=deprecated-declarations"
+
+export CFLAGS="%{optflags}"
 
 cmake -DCMAKE_VERBOSE_MAKEFILE=ON \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
