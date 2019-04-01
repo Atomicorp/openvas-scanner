@@ -1,8 +1,8 @@
 Summary: The Open Vulnerability Assessment (OpenVAS) Server
 Name:    openvas-scanner
-Version: 5.1.2
+Version: 5.1.3
 Release: RELEASE-AUTO%{?dist}.art
-Source0: https://github.com/greenbone/openvas-scanner/archive/v5.1.2.tar.gz
+Source0: https://github.com/greenbone/openvas-scanner/archive/v%{version}.tar.gz
 Source1: openvas-initd.sh
 Source2: openvassd.conf
 Source3: openvas.logrotate
@@ -10,8 +10,15 @@ Source4: openvas-scanner.sysconfig
 Source5: openvas-nvt-sync-cron
 Source6: openvas-nvt-sync-cronjob
 Source7: openvas-scanner.service
-Patch1: openvas-scanner-5.1.2-Werror.patch
-Patch2: openvas-scanner-gcc7.patch
+
+Patch4:         openvas-scanner-bsdsource.patch
+Patch6:         openvas-scanner-gcc8.patch
+Patch7:         openvas-scanner-gcc8_2.patch
+Patch8:         openvas-scanner-coverty_#274950.patch
+
+
+#Patch1: openvas-scanner-5.1.2-Werror.patch
+#Patch2: openvas-scanner-gcc7.patch
 
 License: GNU GPLv2
 URL: http://www.openvas.org
@@ -30,7 +37,12 @@ BuildRequires: automake  libtool
 BuildRequires:  cmake >= 2.6.0
 BuildRequires:  gpgme-devel
 BuildRequires: doxygen
+
+%if  0%{?rhel} == 7
+BuildRequires: atomic-libgcrypt-libgcrypt atomic-libgcrypt-libgcrypt-devel atomic-libgcrypt-libgcrypt-runtime atomic-libgpg-error-libgpg-error-devel atomic-libgpg-error-libgpg-error-runtime
+%else
 BuildRequires: libgcrypt-devel
+%endif
 
 BuildRequires: redis
 
@@ -107,8 +119,11 @@ openvas-scanner is the server component of the Network Vulnerabilty Scanner suit
 
 %prep
 %setup -n %{name}-%{version} -b 0
-%patch1 -p 1 -b .werror
-#%patch2 -p1 
+%patch6 -p 1 -b .gcc8
+%patch7 -p 1 -b .gcc8_2
+
+%patch8 -p 1 -b .coverty_#274950
+
 
 
 for i in CHANGES ChangeLog; do
@@ -129,6 +144,24 @@ done
 %endif
 
 #export CFLAGS="$RPM_OPT_FLAGS -Werror=unused-but-set-variable -lgpg-error -Wno-error=deprecated-declarations"
+
+%if  0%{?rhel} == 7
+        # This should do it normally, but it doesnt without the rpath down below
+        . /opt/atomic/atomic-libgpg-error/enable
+        . /opt/atomic/atomic-libgcrypt/enable
+        export CC="gcc -Wl,-rpath,/opt/atomic/atomic-libgpg-error/root/usr/lib64,-rpath,/opt/atomic/atomic-libgcrypt/root/usr/lib64/"
+        export PATH="/opt/atomic/atomic-libgpg-error/root/usr/bin:/opt/atomic/atomic-libgcrypt/root/usr/bin:$PATH"
+        export LDFLAGS="-L/opt/atomic/atomic-libgpg-error/root/usr/lib64 -L/opt/atomic/atomic-libgcrypt/root/usr/lib64/ -lgcrypt"
+        export CFLAGS="-I/opt/atomic/atomic-libgpg-error/root/usr/include -I/opt/atomic/atomic-libgcrypt/root/usr/include"
+        export PKG_CONFIG_PATH="/opt/atomic/atomic-libgpg-error/root/usr/lib64/pkgconfig:/opt/atomic/atomic-libgcrypt/root/usr/lib64/pkgconfig:/usr/lib64/pkgconfig:/usr/lib/pkgconfig"
+        export CMAKE_PREFIX_PATH=/opt/atomic/atomic-libgcrypt/root/
+
+%else
+export CFLAGS="%{optflags} -Wno-format-truncation"
+
+%endif
+
+
 
 export CFLAGS="%{optflags}"
 
