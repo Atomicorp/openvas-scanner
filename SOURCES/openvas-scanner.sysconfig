@@ -1,5 +1,11 @@
-# Options to pass to the openvassd daemon
-OPTIONS=""
+#Listen on given unix socket - by default scanner listens on all addresse
+#SCANNER_SOCKET=--unix-socker=...
+
+#SCANNER_MODE=--listen-mode=...
+#SCANNER_GROUP=--listen-group=...
+#SCANNER_OWNER=--listen-owner=...
+
+
 
 # Set to yes if plugins should be automatically updated via a cron job
 auto_plugin_update=no
@@ -16,5 +22,3 @@ notify_openvas_scanner=yes
 #OV_RSYNC_FEED		URL of rsync feed
 #OV_HTTP_FEED		URL of http feed
 
-# First time install token
-FIRSTBOOT=no

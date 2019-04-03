@@ -1,0 +1,23 @@
+From 21ef91bfb30b8301dc3f7c63c5ff1119c2408b59 Mon Sep 17 00:00:00 2001
+From: Hani Benhabiles <kroosec@gmail.com>
+Date: Fri, 8 Jun 2018 02:21:28 +0100
+Subject: [PATCH] Fix coverity issue #274950.
+
+Buffer not null-terminated.
+---
+ src/openvassd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/openvassd.c b/src/openvassd.c
+index b17dbd4e..c6c318ae 100644
+--- a/src/openvassd.c
++++ b/src/openvassd.c
+@@ -755,7 +755,7 @@ init_unix_network (int *sock, const char *owner, const char *group,
+       return -1;
+     }
+   addr.sun_family = AF_UNIX;
+-  strncpy (addr.sun_path, unix_socket_path, sizeof (addr.sun_path));
++  strncpy (addr.sun_path, unix_socket_path, sizeof (addr.sun_path) - 1);
+   if (!stat (addr.sun_path, &ustat))
+     {
+       /* Remove socket so we can bind(). */

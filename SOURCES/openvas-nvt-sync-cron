@@ -1,7 +1,5 @@
 #!/bin/sh
 
-PATH=/sbin:/bin:/usr/sbin:/usr/bin
-
 if [ -f /etc/sysconfig/openvas-scanner ]; then
 	. /etc/sysconfig/openvas-scanner
 fi
@@ -13,13 +11,13 @@ fi
 opts=""
 case "$update_method" in
 	rsync)
-		opts="$opts --rsync"
+		opts = "$opts --rsync"
 		;;
 	wget)
-		opts="$opts --wget"
+		opts = "$opts --wget"
 		;;
 	curl)
-		opts="$opts --curl"
+		opts = "$opts --curl"
 		;;
 esac
 
@@ -27,7 +25,8 @@ esac
 [ \! -z "$NVT_DIR" ] && export NVT_DIR
 [ \! -z "$OV_RSYNC_FEED" ] && export OV_RSYNC_FEED
 [ \! -z "$OV_HTTP_FEED" ] && export OV_HTTP_FEED
-/usr/sbin/openvas-nvt-sync $opts > /dev/null 2>&1
+
+/usr/sbin/openvas-nvt-sync $opts >& /dev/null
 
 if [ $? -ne 0 ]; then
 	echo "Error updating OpenVAS plugins. Please run openvas-nvt-sync manually."
@@ -36,11 +35,6 @@ fi
 
 
 if [ "$notify_openvas_scanner" == "yes" ]; then
-	/etc/init.d/openvas-scanner restart > /dev/null 2>&1
-	if [ ! -f /var/lib/openvas/mgr/tasks.db ]; then
-		/usr/sbin/openvasmd --rebuild > /dev/null 2>&1
-	else
-		/etc/init.d/openvas-manager restart > /dev/null 2>&1
-	fi
+	/etc/init.d/openvas-scanner reloadplugins
 fi
 
