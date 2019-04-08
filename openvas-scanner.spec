@@ -41,8 +41,6 @@ BuildRequires: atomic-libgcrypt, atomic-libgcrypt-devel
 BuildRequires: atomic-libgpg-error, atomic-libgpg-error-devel
 BuildRequires: atomic-gpgme, atomic-gpgme-devel
 BuildRequires: atomic-zlib, atomic-zlib-devel
-# This needs to be renamed
-BuildRequires: atomic-heimdal-runtime
 BuildRequires: cmake3
 
 %else
@@ -126,8 +124,7 @@ openvas-scanner is the server component of the Network Vulnerabilty Scanner suit
 export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations "
 
 %if  0%{?rhel} == 7
-        source /opt/atomicorp/atomic/enable
-        export CC="gcc -Wl,-rpath,/opt/atomicorp/atomic/root/usr/lib64/"
+        export CC="gcc -Wl,-rpath,/opt/atomicorp/atomic/root/usr/lib64/,-rpath,/opt/atomicorp/atomic/root/usr/lib64/heimdal/"
         export PATH="/opt/atomicorp/atomic/root/usr/bin:$PATH"
         export LDFLAGS="-L/opt/atomicorp/atomic/root/usr/lib64/ -lgcrypt -ldl -lgpg-error"
         export CFLAGS="$CFLAGS -I/opt/atomicorp/atomic/root/usr/include/"
