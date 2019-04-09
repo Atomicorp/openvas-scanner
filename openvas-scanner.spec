@@ -35,11 +35,16 @@ BuildRequires: libksba-devel
 
 
 %if  0%{?rhel} == 7
+
 BuildRequires: atomic-libgcrypt, atomic-libgcrypt-devel
 BuildRequires: atomic-libgpg-error, atomic-libgpg-error-devel
 BuildRequires: atomic-gpgme, atomic-gpgme-devel
 BuildRequires: atomic-zlib, atomic-zlib-devel
+BuildRequires: atomic-sqlite, atomic-sqlite-devel
+BuildRequires: atomic-libksba, atomic-libksba-devel
+
 BuildRequires: cmake3
+Requires: atomic-libksba
 
 %else
 BuildRequires: libgcrypt-devel
@@ -128,6 +133,7 @@ export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations "
         export CFLAGS="$CFLAGS -I/opt/atomicorp/atomic/root/usr/include/"
         export PKG_CONFIG_PATH="/opt/atomicorp/atomic/root/usr/lib64/pkgconfig"
         export CMAKE_PREFIX_PATH="/opt/atomicorp/atomic/root/"
+
 %else
         export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations -Wno-format-truncation"
 
