@@ -128,6 +128,8 @@ export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations "
         export CFLAGS="$CFLAGS -I/opt/atomicorp/atomic/root/usr/include/"
         export PKG_CONFIG_PATH="/opt/atomicorp/atomic/root/usr/lib64/pkgconfig"
         export CMAKE_PREFIX_PATH="/opt/atomicorp/atomic/root/"
+%else
+        export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations -Wno-format-truncation"
 
 %endif
 
