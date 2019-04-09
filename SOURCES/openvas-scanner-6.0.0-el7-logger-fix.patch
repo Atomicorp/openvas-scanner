@@ -1,0 +1,17 @@
+diff -ruN openvas-scanner-6.0.0/tools/greenbone-nvt-sync.in a/tools/greenbone-nvt-sync.in
+--- openvas-scanner-6.0.0/tools/greenbone-nvt-sync.in	2019-04-05 05:11:38.000000000 -0400
++++ a/tools/greenbone-nvt-sync.in	2019-04-09 08:17:07.436322161 -0400
+@@ -89,10 +89,10 @@
+ LOG_CMD="logger -t $SCRIPT_NAME"
+ 
+ check_logger () {
+-  logger --socket-error=on -p daemon.info -t $SCRIPT_NAME "Checking logger" --no-act 1>/dev/null 2>&1
++  logger -p daemon.info -t $SCRIPT_NAME "Checking logger" 1>/dev/null 2>&1
+   if [ $? -gt 0 ]
+   then
+-    LOG_CMD="logger --socket-error=off -s -t $SCRIPT_NAME"
++    LOG_CMD="logger -s -t $SCRIPT_NAME"
+     $LOG_CMD -p daemon.warning "The log facility is not working as expected. All messages will be written to the standard error stream."
+   fi
+ }
+Binary files openvas-scanner-6.0.0/tools/.greenbone-nvt-sync.in.swp and a/tools/.greenbone-nvt-sync.in.swp differ

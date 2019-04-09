@@ -10,10 +10,8 @@ Source2: openvassd.conf
 Source3: openvas.logrotate
 Source4: openvas-scanner.sysconfig
 Source7: openvas-scanner.service
+Patch0: openvas-scanner-6.0.0-el7-logger-fix.patch
 
-
-#Patch1: openvas-scanner-5.1.2-Werror.patch
-#Patch2: openvas-scanner-gcc7.patch
 
 License: GNU GPLv2
 URL: http://www.openvas.org
