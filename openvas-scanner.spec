@@ -15,9 +15,8 @@ Patch0: openvas-scanner-6.0.0-el7-logger-fix.patch
 
 License: GNU GPLv2
 URL: http://www.openvas.org
-Group: System Environment/Libraries
-Vendor: OpenVAS Development Team, http://www.openvas.org
-Packager: Scott R. Shinn <scott@atomicorp.com>
+Vendor: Greenbone https://www.greenbone.net
+Packager: https://www.atomicorp.com
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Prefix: %{_prefix}
 AutoReqProv: no
