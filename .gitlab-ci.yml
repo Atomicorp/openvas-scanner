@@ -77,3 +77,17 @@ build-fc29-x86_64:
   script:
     - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh fc29-x86_64 openvas-scanner.spec /mnt/repo/atomic-testing/fedora/29/x86_64 ; else  gitlab-build.sh fc29-x86_64 openvas-scanner.spec /mnt/repo/atomic-bleeding/fedora/29/x86_64 ; fi )
 
+
+build-fc30-x86_64:
+  stage: prep
+  before_script:
+    - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+    - mkdir -p ~/mock
+    - cp mock/* ~/mock/
+    - cp openvas-scanner.spec ~/rpmbuild/SPECS/
+    - cp SOURCES/* ~/rpmbuild/SOURCES/
+
+
+  script:
+    - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh fc30-x86_64 openvas-scanner.spec /mnt/repo/atomic-testing/fedora/30/x86_64 ; else  gitlab-build.sh fc30-x86_64 openvas-scanner.spec /mnt/repo/atomic-bleeding/fedora/30/x86_64 ; fi )
+
