@@ -23,7 +23,7 @@ AutoReqProv: no
 AutoReq: 0
 Obsoletes: openvas-plugins, openvas-server, openvas-server-devel
 
-BuildRequires: openvas-libraries, openvas-libraries-devel 
+BuildRequires: gvm-libs, gvm-libs-devel
 BuildRequires: flex 
 BuildRequires: automake  libtool 
 BuildRequires:  cmake >= 2.6.0
