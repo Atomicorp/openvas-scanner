@@ -268,8 +268,10 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc COPYING 
-#/etc/openvas/openvassd.conf
 %config(noreplace) /etc/openvas/openvassd.conf
+%config(noreplace) /etc/openvas/openvas_log.conf
+%config(noreplace) %{_sysconfdir}/sysconfig/openvas-scanner
+%config(noreplace) %{_sysconfdir}/logrotate.d/openvas-scanner
 %{_bindir}/openvas-nasl
 %{_bindir}/openvas-nasl-lint
 #%{_sbindir}/greenbone-nvt-sync
@@ -292,9 +294,6 @@ rm -rf $RPM_BUILD_ROOT
 # el8 didnt like this
 #%config(noreplace) %{_sysconfdir}/openvas/openvassd.conf
 #%config(noreplace) %{_sysconfdir}/openvas/openvassd_log.conf
-%config(noreplace) /etc/openvas/openvas_log.conf
-%config(noreplace) %{_sysconfdir}/sysconfig/openvas-scanner
-%config(noreplace) %{_sysconfdir}/logrotate.d/openvas-scanner
 #%{_mandir}/man8/openvassd.8.*
 %{_mandir}/man8/greenbone-nvt-sync.8.*
 %dir %{_var}/log/openvas
