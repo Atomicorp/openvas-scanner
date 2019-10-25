@@ -49,7 +49,8 @@ Requires: atomic-libksba
 BuildRequires: libgcrypt-devel
 %endif
 
-BuildRequires: redis
+# Issues with mock on el8
+#BuildRequires: redis
 
 %if 0%{?rhel} >= 7 || 0%{?fedora} > 15
 BuildRequires:  systemd
@@ -266,23 +267,35 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc CHANGES COPYING 
+%doc COPYING 
+#/etc/openvas/openvassd.conf
+%config(noreplace) /etc/openvas/openvassd.conf
 %{_bindir}/openvas-nasl
 %{_bindir}/openvas-nasl-lint
-%{_sbindir}/greenbone-nvt-sync
-%{_sbindir}/openvassd
+#%{_sbindir}/greenbone-nvt-sync
+#%{_sbindir}/openvassd
+# el8
+#%{_bindir}/greenbone-nvt-sync
+#%{_bindir}/openvassd
+#%{_sbindir}/openvas
+/usr/bin/greenbone-nvt-sync
+/usr/sbin/openvas
+
 %if 0%{?rhel} >= 7 || 0%{?fedora} > 15
 %{_unitdir}/%{name}.service
 %else
 %{_initddir}/openvas-scanner
 %endif
+
 %dir %{_sysconfdir}/openvas
 %dir %{_sysconfdir}/openvas/gnupg
-%config(noreplace) %{_sysconfdir}/openvas/openvassd.conf
-%config(noreplace) %{_sysconfdir}/openvas/openvassd_log.conf
+# el8 didnt like this
+#%config(noreplace) %{_sysconfdir}/openvas/openvassd.conf
+#%config(noreplace) %{_sysconfdir}/openvas/openvassd_log.conf
+%config(noreplace) /etc/openvas/openvas_log.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/openvas-scanner
 %config(noreplace) %{_sysconfdir}/logrotate.d/openvas-scanner
-%{_mandir}/man8/openvassd.8.*
+#%{_mandir}/man8/openvassd.8.*
 %{_mandir}/man8/greenbone-nvt-sync.8.*
 %dir %{_var}/log/openvas
 %dir %{_var}/lib/openvas
@@ -292,8 +305,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_var}/lib/openvas/plugins/gsf
 %dir %{_var}/lib/openvas/gnupg
 %{_libdir}/libopenvas*
-/usr/share/doc/openvas-scanner/*
+#/usr/share/doc/openvas-scanner/*
+# Other el8 changes
 /usr/share/man/man1/openvas*
+/usr/share/man/man8/openvas.8.gz
+
 
 
 %changelog
