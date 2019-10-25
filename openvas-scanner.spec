@@ -2,7 +2,7 @@
 
 Summary: The Open Vulnerability Assessment (OpenVAS) Server
 Name:    openvas-scanner
-Version: 6.0.0
+Version: 7.0.0
 Release: RELEASE-AUTO%{?dist}.art
 Source0: https://github.com/greenbone/openvas-scanner/archive/v%{version}.tar.gz
 Source1: openvas-initd.sh
@@ -118,7 +118,7 @@ BuildRequires: libpcap-devel
 openvas-scanner is the server component of the Network Vulnerabilty Scanner suite OpenVAS.
 
 %prep
-%autosetup -p 1 -n %{name}-%{version} -b 0
+%autosetup -p 1 -n openvas-%{version} -b 0
 
 
 %build
@@ -157,11 +157,6 @@ cmake3 \
         -DSYSCONFDIR=%{_sysconfdir} \
         -DLIBDIR=%{_libdir} \
         -DLOCALSTATEDIR=%{_localstatedir}
-
-
-%if 0%{?el4}0%{?el5}
-perl -p -i -e "s[^include= ][include= -I/usr/gnutls2/include -L/usr/gnutls2/lib ]" openvas.tmpl
-%endif
 
 
 # smp flags will sometimes break on el5
