@@ -72,7 +72,7 @@ Requires: 	which
 
 
 Requires: gpgme 
-Requires: nmap pnscan openldap-clients net-snmp-utils
+Requires: nmap openldap-clients net-snmp-utils
 Requires: rsync
 
 %if 0%{?fedora} >= 12 || 0%{?rhel} >= 6
