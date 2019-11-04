@@ -10,6 +10,7 @@ build-kali-x86_64:
     - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
     - rm -rf ~/rpmbuild/BUILD/* || true
     - cp *.spec ~/rpmbuild/SPECS/
+    - rm -f ~/rpmbuild/SOURCES/*
     - cp SOURCES/* ~/rpmbuild/SOURCES/
     - git clone https://gitlab.dev.atomicorp.com/atomicrocketturtle/buildsys-tools
     - cp buildsys-tools/* ~/bin/
@@ -27,6 +28,7 @@ build-xenial-x86_64:
     - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
     - rm -rf ~/rpmbuild/BUILD/* || true
     - cp *.spec ~/rpmbuild/SPECS/
+    - rm -f ~/rpmbuild/SOURCES/*
     - cp SOURCES/* ~/rpmbuild/SOURCES/
     - git clone https://gitlab.dev.atomicorp.com/atomicrocketturtle/buildsys-tools
     - cp buildsys-tools/* ~/bin/
@@ -43,6 +45,7 @@ build-el7-x86_64:
     - mkdir -p ~/mock
     - cp mock/* ~/mock/
     - cp *.spec ~/rpmbuild/SPECS/
+    - rm -f ~/rpmbuild/SOURCES/*
     - cp SOURCES/* ~/rpmbuild/SOURCES/
     
 
@@ -56,6 +59,7 @@ build-el8-x86_64:
     - mkdir -p ~/mock
     - cp mock/* ~/mock/
     - cp *.spec ~/rpmbuild/SPECS/
+    - rm -f ~/rpmbuild/SOURCES/*
     - cp SOURCES/* ~/rpmbuild/SOURCES/
 
 
@@ -99,6 +103,7 @@ build-fc30-x86_64:
     - mkdir -p ~/mock
     - cp mock/* ~/mock/
     - cp openvas-scanner.spec ~/rpmbuild/SPECS/
+    - rm -f ~/rpmbuild/SOURCES/*
     - cp SOURCES/* ~/rpmbuild/SOURCES/
 
 
