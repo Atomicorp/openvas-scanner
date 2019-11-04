@@ -310,8 +310,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_var}/lib/openvas
 %dir %{_var}/cache/openvas
 %dir %{_var}/lib/openvas/plugins
-%dir %{_var}/lib/openvas/plugins/nvt
-%dir %{_var}/lib/openvas/plugins/gsf
+#%dir %{_var}/lib/openvas/plugins/nvt
+#%dir %{_var}/lib/openvas/plugins/gsf
 %dir %{_var}/lib/openvas/gnupg
 %{_libdir}/libopenvas*
 #/usr/share/doc/openvas-scanner/*
