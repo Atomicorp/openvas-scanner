@@ -10,7 +10,6 @@ Source2: openvassd.conf
 Source3: openvas.logrotate
 Source4: openvas-scanner.sysconfig
 Source7: openvas-scanner.service
-Patch0: openvas-scanner-6.0.0-el7-logger-fix.patch
 
 
 License: GNU GPLv2
@@ -171,11 +170,11 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 #chmod 755 %{buildroot}/%{_libdir}/openvas/plugins
 
 #Make directories for the NVT feeds
-mkdir -p %{buildroot}/%{_var}/lib/openvas/plugins/nvt
-mkdir -p %{buildroot}/%{_var}/lib/openvas/plugins/gsf
+#mkdir -p %{buildroot}/%{_var}/lib/openvas/plugins/nvt
+#mkdir -p %{buildroot}/%{_var}/lib/openvas/plugins/gsf
 
 # Make gnupg dir
-mkdir -p %{buildroot}/%{_var}/lib/openvas/gnupg/
+#mkdir -p %{buildroot}/%{_var}/lib/openvas/gnupg/
 
 # Make plugin cache directory
 mkdir -p %{buildroot}/%{_var}/cache/openvas
@@ -211,6 +210,17 @@ install -m 644 -Dp %{SOURCE3} \
 # Install sysconfig configration
 install -Dp -m 644 %{SOURCE4} %{buildroot}/%{_sysconfdir}/sysconfig/openvas-scanner
 
+
+%pre
+if ! id -g openvas > /dev/null 2>&1; then
+	groupadd -r openvas
+fi
+
+if ! id -g openvas > /dev/null 2>&1; then
+	useradd g openvas -G openvas       \
+        -d %{_localstatedir}/openvas \
+        -r -s /sbin/nologin openvas
+fi
 
 
 %if 0%{?rhel} >= 7 || 0%{?fedora} > 15
