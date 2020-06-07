@@ -173,6 +173,10 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 #mkdir -p %{buildroot}/%{_var}/lib/openvas/plugins/nvt
 #mkdir -p %{buildroot}/%{_var}/lib/openvas/plugins/gsf
 
+mkdir -p %{buildroot}/var/lib/gvm/cert-data
+mkdir -p %{buildroot}/var/lib/gvm/scap-data
+
+
 # Make gnupg dir
 #mkdir -p %{buildroot}/%{_var}/lib/openvas/gnupg/
 
@@ -309,7 +313,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_var}/log/openvas
 %dir %{_var}/lib/openvas
 %dir %{_var}/cache/openvas
-%dir %{_var}/lib/openvas/plugins
+%attr(770,openvas,openvas) %dir %{_var}/lib/openvas/plugins
+%attr(770,openvas,openvas) %dir /var/lib/gvm/cert-data
+%attr(770,openvas,openvas) %dir /var/lib/gvm/scap-data
 #%dir %{_var}/lib/openvas/plugins/nvt
 #%dir %{_var}/lib/openvas/plugins/gsf
 %dir %{_var}/lib/openvas/gnupg

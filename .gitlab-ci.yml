@@ -68,8 +68,8 @@ build-el8-x86_64:
 
 
  
-build-fc28-x86_64:
-  stage: build
+build-fc32-x86_64:
+  stage: prep
   before_script:
     - mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
     - mkdir -p ~/mock
@@ -79,7 +79,7 @@ build-fc28-x86_64:
 
 
   script:
-    - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh fc28-x86_64 openvas-scanner.spec /mnt/repo/atomic-testing/fedora/28/x86_64 ; else  gitlab-build.sh fc28-x86_64 openvas-scanner.spec /mnt/repo/atomic-bleeding/fedora/28/x86_64 ; fi )
+    - (if [[ $CI_BUILD_REF_NAME == "master" ]]; then  gitlab-build.sh fc32-x86_64 openvas-scanner.spec /mnt/repo/atomic-testing/fedora/32/x86_64 ; else  gitlab-build.sh fc32-x86_64 openvas-scanner.spec /mnt/repo/atomic-bleeding/fedora/32/x86_64 ; fi )
 
 
 build-fc29-x86_64:
