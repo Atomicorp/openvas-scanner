@@ -2,7 +2,7 @@
 
 Summary: The Open Vulnerability Assessment (OpenVAS) Server
 Name:    openvas-scanner
-Version: 7.0.0
+Version: 7.0.1
 Release: RELEASE-AUTO%{?dist}.art
 Source0: https://github.com/greenbone/openvas-scanner/archive/v%{version}.tar.gz
 Source1: openvas-initd.sh
@@ -142,7 +142,7 @@ export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations "
 
 %if 0%{?fedora} >= 30
 # disable warnings -> error for stringop-truncation for now
-export CFLAGS="${CFLAGS} -Wno-error=stringop-truncation"
+export CFLAGS="%{optflags} -Wno-error=deprecated-declarations -Wno-error=stringop-truncation -Wno-error=format-truncation="
 %endif
 
 
