@@ -221,7 +221,7 @@ if ! id -g openvas > /dev/null 2>&1; then
 fi
 
 if ! id -g openvas > /dev/null 2>&1; then
-	useradd g openvas -G openvas       \
+	useradd -g openvas -G openvas       \
         -d %{_localstatedir}/openvas \
         -r -s /sbin/nologin openvas
 fi
