@@ -1,0 +1,61 @@
+--- openvas-7.0.1/tools/greenbone-nvt-sync.in	2020-05-12 09:31:22.000000000 -0400
++++ openvas-7.0.1.new/tools/greenbone-nvt-sync.in	2020-07-25 15:03:35.949090216 -0400
+@@ -108,26 +108,50 @@
+ 
+ log_write () {
+   $LOG_CMD -p daemon.notice $1
++  if [[ $DEBUG_OUTPUT ]]; then
++          echo "DEBUG: $1"
++  fi
++
+ }
+ 
+ log_debug () {
+   $LOG_CMD -p daemon.debug "$1"
++  if [[ $DEBUG_OUTPUT ]]; then
++          echo "DEBUG: $1"
++  fi
++
+ }
+ 
+ log_info () {
+   $LOG_CMD -p daemon.info "$1"
++  if [[ $DEBUG_OUTPUT ]]; then
++          echo "DEBUG: $1"
++  fi
++
+ }
+ 
+ log_notice () {
+   $LOG_CMD -p daemon.notice "$1"
++  if [[ $DEBUG_OUTPUT ]]; then
++          echo "DEBUG: $1"
++  fi
++
+ }
+ 
+ log_warning () {
+   $LOG_CMD -p daemon.warning "$1"
++  if [[ $DEBUG_OUTPUT ]]; then
++          echo "DEBUG: $1"
++  fi
++
+ }
+ 
+ log_err () {
+   $LOG_CMD -p daemon.err "$1"
++  if [[ $DEBUG_OUTPUT ]]; then
++          echo "DEBUG: $1"
++  fi
++
+ }
+ 
+ stderr_write ()
+@@ -581,6 +605,7 @@
+       ;;
+     --verbose)
+       RSYNC_VERBOSE="-v"
++      DEBUG_OUTPUT=1
+       ;;
+   esac
+   shift
