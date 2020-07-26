@@ -10,8 +10,7 @@ Source2: openvassd.conf
 Source3: openvas.logrotate
 Source4: openvas-scanner.sysconfig
 Source7: openvas-scanner.service
-
-
+Patch0: greenbone-nvt-update-debug.patch
 License: GNU GPLv2
 URL: http://www.openvas.org
 Vendor: Greenbone https://www.greenbone.net
@@ -21,6 +20,8 @@ Prefix: %{_prefix}
 AutoReqProv: no
 AutoReq: 0
 Obsoletes: openvas-plugins, openvas-server, openvas-server-devel
+
+Requires: redis
 
 BuildRequires: gvm-libs, gvm-libs-devel
 BuildRequires: flex 
@@ -76,7 +77,7 @@ Requires: nmap openldap-clients net-snmp-utils
 Requires: rsync
 
 %if 0%{?fedora} >= 12 || 0%{?rhel} >= 6
-%filter_provides_in %{_libdir}/openvas/plugins
+%filter_provides_in %{_libdir}/gvm/plugins
 %filter_setup
 BuildRequires: libuuid libuuid-devel
 %else
@@ -156,7 +157,9 @@ cmake3 \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
         -DSYSCONFDIR=%{_sysconfdir} \
         -DLIBDIR=%{_libdir} \
-        -DLOCALSTATEDIR=%{_localstatedir}
+        -DLOCALSTATEDIR=%{_localstatedir} \
+	-DOPENVAS_NVT_DIR=/var/lib/gvm/plugins \
+	-DOPENVAS_RUN_DIR=/var/run/gvm
 
 
 # smp flags will sometimes break on el5
@@ -167,28 +170,22 @@ cmake3 \
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot} INSTALL="install -p"
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
-#chmod 755 %{buildroot}/%{_libdir}/openvas/plugins
 
-#Make directories for the NVT feeds
-#mkdir -p %{buildroot}/%{_var}/lib/openvas/plugins/nvt
-#mkdir -p %{buildroot}/%{_var}/lib/openvas/plugins/gsf
-
+mkdir -p %{buildroot}/var/lib/gvm/gnupg
+mkdir -p %{buildroot}/var/lib/gvm/plugins
 mkdir -p %{buildroot}/var/lib/gvm/cert-data
 mkdir -p %{buildroot}/var/lib/gvm/scap-data
-
-
-# Make gnupg dir
-#mkdir -p %{buildroot}/%{_var}/lib/openvas/gnupg/
+mkdir -p %{buildroot}/var/run/gvm/
 
 # Make plugin cache directory
-mkdir -p %{buildroot}/%{_var}/cache/openvas
+mkdir -p %{buildroot}/%{_var}/cache/gvm
 
 # Make the log dir
-mkdir -p %{buildroot}/%{_var}/log/openvas
+mkdir -p %{buildroot}/%{_var}/log/gvm
 
 # Make the sysconfig dir
-mkdir -p %{buildroot}/%{_sysconfdir}/openvas/
-mkdir -p %{buildroot}/%{_sysconfdir}/openvas/gnupg
+mkdir -p %{buildroot}/%{_sysconfdir}/gvm/
+mkdir -p %{buildroot}/%{_sysconfdir}/gvm/gnupg
 
 %if 0%{?rhel} >= 7 || 0%{?fedora} > 15
 install -Dp -m 644 %{SOURCE7} %{buildroot}/%{_unitdir}/%{name}.service
@@ -201,11 +198,11 @@ install -Dp -m 755 %{SOURCE1} %{buildroot}/%{_initddir}/%{name}
 
 # Install initial configuration
 #install -Dp -m 644 %{SOURCE2} %{buildroot}/%{_sysconfdir}/openvas/
-sed -e "s:@@OPENVAS_PLUGINS@@:%{_var}/lib/openvas/plugins:g
-        s:@@OPENVAS_CACHE@@:%{_var}/cache/openvas:g
-        s:@@OPENVAS_LOGDIR@@:%{_var}/log/openvas:g
-        s:@@OPENVAS_SYSCONF@@:%{_sysconfdir}/openvas:g" %{SOURCE2} > openvassd.conf
-install -Dp -m 644 openvassd.conf %{buildroot}/%{_sysconfdir}/openvas/openvassd.conf
+sed -e "s:@@OPENVAS_PLUGINS@@:%{_var}/lib/gvm/plugins:g
+        s:@@OPENVAS_CACHE@@:%{_var}/cache/gvm:g
+        s:@@OPENVAS_LOGDIR@@:%{_var}/log/gvm:g
+        s:@@OPENVAS_SYSCONF@@:%{_sysconfdir}/gvm:g" %{SOURCE2} > openvas.conf
+install -Dp -m 644 openvas.conf %{buildroot}/%{_sysconfdir}/openvas/openvas.conf
 
 # install log rotation stuff
 install -m 644 -Dp %{SOURCE3} \
@@ -216,26 +213,17 @@ install -Dp -m 644 %{SOURCE4} %{buildroot}/%{_sysconfdir}/sysconfig/openvas-scan
 
 
 %pre
-if ! id -g openvas > /dev/null 2>&1; then
-	groupadd -r openvas
+if ! id -g gvm > /dev/null 2>&1; then
+	groupadd -r gvm
 fi
 
-if ! id -g openvas > /dev/null 2>&1; then
-	useradd -g openvas -G openvas       \
-        -d %{_localstatedir}/openvas \
-        -r -s /sbin/nologin openvas
+if ! id -g gvm > /dev/null 2>&1; then
+	useradd -g gvm -G gvm -d /var/lib/gvm -r -s /bin/bash gvm
 fi
 
 
-%if 0%{?rhel} >= 7 || 0%{?fedora} > 15
-#systemd post
 %post
 %systemd_post %{name}.service
-
-# Generate cert
-#if [ ! -f  /var/lib/openvas/CA/servercert.pem ] ; then
-#  /usr/sbin/openvas-mkcert -q >/dev/null 2>&1
-#fi
 
 %preun
 %systemd_preun %{name}.service
@@ -243,37 +231,7 @@ fi
 %postun
 %systemd_postun_with_restart %{name}.service
 
-%else
 
-
-%post 
-# This adds the proper /etc/rc*.d links for the script
-if [ $1 = 1 ]; then
-        /sbin/chkconfig --add openvas-scanner
-fi
-
-/sbin/ldconfig >/dev/null 2>&1
-/sbin/chkconfig openvas-scanner on
-
-# Generate cert
-#if [ ! -f  /var/lib/openvas/CA/servercert.pem ] ; then
-#  /usr/sbin/openvas-mkcert -q >/dev/null 2>&1
-#fi
-
-
-%preun
-if [ $1 = 0 ]; then
-  /sbin/service openvas-scanner stop >/dev/null 2>&1
-  /sbin/chkconfig --del openvas-scanner
-fi
-
-
-%postun 
-if [ $1 -ge 1 ]; then
-  /sbin/service openvas-scanner condrestart >/dev/null 2>&1
-fi
-
-%endif
 
 
 %clean
@@ -281,8 +239,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc COPYING 
-%config(noreplace) /etc/openvas/openvassd.conf
+#%doc COPYING 
+%config(noreplace) /etc/openvas/openvas.conf
 %config(noreplace) /etc/openvas/openvas_log.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/openvas-scanner
 %config(noreplace) %{_sysconfdir}/logrotate.d/openvas-scanner
@@ -296,29 +254,20 @@ rm -rf $RPM_BUILD_ROOT
 #%{_sbindir}/openvas
 /usr/bin/greenbone-nvt-sync
 /usr/sbin/openvas
-
-%if 0%{?rhel} >= 7 || 0%{?fedora} > 15
 %{_unitdir}/%{name}.service
-%else
-%{_initddir}/openvas-scanner
-%endif
-
-%dir %{_sysconfdir}/openvas
-%dir %{_sysconfdir}/openvas/gnupg
-# el8 didnt like this
-#%config(noreplace) %{_sysconfdir}/openvas/openvassd.conf
-#%config(noreplace) %{_sysconfdir}/openvas/openvassd_log.conf
-#%{_mandir}/man8/openvassd.8.*
+%dir %{_sysconfdir}/gvm
+%dir %{_sysconfdir}/gvm/gnupg
 %{_mandir}/man8/greenbone-nvt-sync.8.*
-%dir %{_var}/log/openvas
-%dir %{_var}/lib/openvas
-%dir %{_var}/cache/openvas
-%attr(770,openvas,openvas) %dir %{_var}/lib/openvas/plugins
-%attr(770,openvas,openvas) %dir /var/lib/gvm/cert-data
-%attr(770,openvas,openvas) %dir /var/lib/gvm/scap-data
+%attr(770,gvm,gvm) %dir %{_var}/log/gvm
+%attr(770,gvm,gvm) %dir %{_var}/lib/gvm
+%attr(770,gvm,gvm) %dir %{_var}/cache/gvm
+%attr(770,gvm,gvm) %dir %{_var}/lib/gvm/plugins
+%attr(770,gvm,gvm) %dir /var/lib/gvm/cert-data
+%attr(770,gvm,gvm) %dir /var/lib/gvm/scap-data
+%attr(770,gvm,gvm) %dir /var/run/gvm/
 #%dir %{_var}/lib/openvas/plugins/nvt
 #%dir %{_var}/lib/openvas/plugins/gsf
-%dir %{_var}/lib/openvas/gnupg
+%dir %{_var}/lib/gvm/gnupg
 %{_libdir}/libopenvas*
 #/usr/share/doc/openvas-scanner/*
 # Other el8 changes
