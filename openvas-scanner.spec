@@ -2,10 +2,10 @@
 
 Summary: The Open Vulnerability Assessment (OpenVAS) Server
 Name:    openvas-scanner
-Version: 7.0.1
+Version: 20.8.0
 Release: RELEASE-AUTO%{?dist}.art
 Source0: https://github.com/greenbone/openvas-scanner/archive/v%{version}.tar.gz
-Source1: openvas-initd.sh
+#Source1: openvas-initd.sh
 Source2: openvassd.conf
 Source3: openvas.logrotate
 Source4: openvas-scanner.sysconfig
@@ -187,12 +187,7 @@ mkdir -p %{buildroot}/%{_var}/log/gvm
 mkdir -p %{buildroot}/%{_sysconfdir}/gvm/
 mkdir -p %{buildroot}/%{_sysconfdir}/gvm/gnupg
 
-%if 0%{?rhel} >= 7 || 0%{?fedora} > 15
 install -Dp -m 644 %{SOURCE7} %{buildroot}/%{_unitdir}/%{name}.service
-%else
-# Install startup script. Dont use %{_initdir} here. This breaks el4 builds
-install -Dp -m 755 %{SOURCE1} %{buildroot}/%{_initddir}/%{name}
-%endif
 
 
 
@@ -277,6 +272,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Aug 15 2020 Scott R. Shinn <scott@atomicorp.com> - 20.8.0-RELEASE-AUTO
+- Update to 20.8.0
+
 * Fri Apr 5 2019 Scott R. Shinn <scott@atomicorp.com> - 6.0.0-RELEASE-AUTO
 - Update to 6.0.0
 
