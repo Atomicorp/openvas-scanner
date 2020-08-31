@@ -75,6 +75,7 @@ build-fc32-x86_64:
     - mkdir -p ~/mock
     - cp mock/* ~/mock/
     - cp openvas-scanner.spec ~/rpmbuild/SPECS/
+    - rm -f ~/rpmbuild/SOURCES/*
     - cp SOURCES/* ~/rpmbuild/SOURCES/
 
 
