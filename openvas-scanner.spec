@@ -236,7 +236,6 @@ rm -rf $RPM_BUILD_ROOT
 #%{_sbindir}/openvas
 /usr/bin/greenbone-nvt-sync
 /usr/sbin/openvas
-%{_unitdir}/%{name}.service
 %dir %{_sysconfdir}/gvm
 %dir %{_sysconfdir}/gvm/gnupg
 %{_mandir}/man8/greenbone-nvt-sync.8.*
