@@ -9,7 +9,6 @@ Source0: https://github.com/greenbone/openvas-scanner/archive/v%{version}.tar.gz
 Source2: openvassd.conf
 Source3: openvas.logrotate
 Source4: openvas-scanner.sysconfig
-Source7: openvas-scanner.service
 Patch0: greenbone-nvt-update-debug.patch
 License: GNU GPLv2
 URL: http://www.openvas.org
@@ -187,7 +186,6 @@ mkdir -p %{buildroot}/%{_var}/log/gvm
 mkdir -p %{buildroot}/%{_sysconfdir}/gvm/
 mkdir -p %{buildroot}/%{_sysconfdir}/gvm/gnupg
 
-install -Dp -m 644 %{SOURCE7} %{buildroot}/%{_unitdir}/%{name}.service
 
 
 
@@ -215,17 +213,6 @@ fi
 if ! id -g gvm > /dev/null 2>&1; then
 	useradd -g gvm -G gvm -d /var/lib/gvm -r -s /bin/bash gvm
 fi
-
-
-%post
-%systemd_post %{name}.service
-
-%preun
-%systemd_preun %{name}.service
-
-%postun
-%systemd_postun_with_restart %{name}.service
-
 
 
 
@@ -272,6 +259,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Sep 26 2020 Scott R. Shinn <scott@atomicorp.com> - 20.8.0-RELEASE-AUTO
+- Fix for GVM issue #31
+
 * Sat Aug 15 2020 Scott R. Shinn <scott@atomicorp.com> - 20.8.0-RELEASE-AUTO
 - Update to 20.8.0
 
